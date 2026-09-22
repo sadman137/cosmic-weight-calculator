@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Cosmic Weight Calculator</title>
+    </head>
+    <body>
+        <!-- 1. Heading -->
+        <h1>Cosmic Weight Calculator</h1>
+        <p>Greetings, unknown entity. Find out how much you weigh across the universe.</p>
+
+        <!-- 2. Input -->
+        <div class="calculator-box">
+
+            <!-- Earth Weight -->
+            <label for="earthWeight">Enter your Earth weight:</label>
+            <br>
+            <input type="number" id="earthWeight" placeholder="e.g. 60">
+            <br><br>
+
+            <!-- Planets Dropdown -->
+            <select id="planetSelect">
+                <option value="0.16">Moon</option>
+                <option value="0.38">Mercury</option>
+                <option value="0.91">Venus</option>
+                <option value="0.38">Mars</option>
+                <option value="2.53">Jupiter</option>
+                <option value="1.07">Saturn</option>
+                <option value="0.89">Uranus</option>
+                <option value="1.14">Neptune</option>
+                <option value="0.06">Pluto</option>
+            </select>
+            <br><br>
+
+            <!-- Calculate -->
+            <button onclick="calculateWeight()">Launch Calculation</button>
+
+            <!-- Output -->
+            <h2 id="resultDisplay">Your Cosmic Weight: --</h2>
+        </div>
+    </body>
+</html>
