@@ -1,41 +1,50 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Cosmic Weight Calculator</title>
+        <link rel="stylesheet" href="style.css">
     </head>
+
     <body>
-        <!-- 1. Heading -->
-        <h1>Cosmic Weight Calculator</h1>
-        <p>Greetings, unknown entity. Find out how much you weigh across the universe.</p>
 
-        <!-- 2. Input -->
-        <div class="calculator-box">
+        <div class="stars-bg"></div>
 
-            <!-- Earth Weight -->
-            <label for="earthWeight">Enter your Earth weight:</label>
-            <br>
-            <input type="number" id="earthWeight" placeholder="e.g. 60">
-            <br><br>
+        <header>
+            <h1>Cosmic Gravity Jumper</h1>
+            <p>Type your weight, pick a unit, and jump across the Universe!</p>
+        </header>
 
-            <!-- Planets Dropdown -->
-            <select id="planetSelect">
-                <option value="0.16">Moon</option>
-                <option value="0.38">Mercury</option>
-                <option value="0.91">Venus</option>
-                <option value="0.38">Mars</option>
-                <option value="2.53">Jupiter</option>
-                <option value="1.07">Saturn</option>
-                <option value="0.89">Uranus</option>
-                <option value="1.14">Neptune</option>
-                <option value="0.06">Pluto</option>
-            </select>
-            <br><br>
+        <!-- Top Section: Controls and Earth -->
+        <section class="top-container">
+            <div class="calculator-card">
+                <label for="earthWeight">Your Weight:</label>
+                <div class="input-group">
+                    <input type="number" id="earthWeight" placeholder="e.g. 70" value="70">
+                    <select id="unitSelect">
+                        <option value="kg">kg</option>
+                        <option value="lbs">lbs</option>
+                    </select>
+                </div>
+                <button id="calcBtn" onclick="calculateAllWeights()">Calculate</button>
+            </div>
 
-            <!-- Calculate -->
-            <button onclick="calculateWeight()">Launch Calculation</button>
+            <!-- Earth Display Box -->
+            <div class="earth-hero-card" id="earthHero">
+                <h2>Earth</h2>
+                <div class="earth-display">
+                    <span class="weight-tag" id="earthDisplayWeight">70 kg</span>
+                    <span class="gravity-tag">Gravity: 1.00 g (9.8 m/s²)</span>
+                </div>
+            </div>
+        </section>
 
-            <!-- Output -->
-            <h2 id="resultDisplay">Your Cosmic Weight: --</h2>
-        </div>
+        <!-- Planets Grid Container -->
+        <main class="planets-grid" id="planetsGrid">
+            <!-- Javascript -->
+        </main>
+
+        <script src="script.js"></script>
     </body>
 </html>
