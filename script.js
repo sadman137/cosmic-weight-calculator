@@ -134,8 +134,89 @@ function handlePlanetClick(index) {
     jumper.classList.add('active', 'jumping');
 }
 
+// Star Canvas Background Function
+function initStarfield() {
+    const canvas = document.getElementById('starsCanvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+
+    let width = (canvas.width = window.innerWidth);
+    let height = (canvas.height = window.innerHeight);
+
+    const numStars = Math.floor((width * height) / 3000);
+    const stars = [];
+    const mouse = { x: -1000, y: -1000 };
+
+    // Generate stars
+    for (let i = 0; i < numStars; i++) {
+        stars.push({
+            x: Math.random() * width,
+            y: Math.random() * height,
+            radius: Math.random() * 1.2 + 0.3,
+            alpha: Math.random() * 0.8 + 0.2,
+            speedX: (Math.random() - 0.5) * 0.15,
+            speedY: (Math.random() - 0.5) * 0.15,
+            twinkleSpeed: Math.random() * 0.02 + 0.005
+        });
+    }
+
+    // Resize canvas on window resize
+    window.addEventListener('resize', () => {
+        width = canvas.width = window.innerWidth;
+        height = canvas.height = window.innerHeight;
+    });
+
+    // Track mouse position for soft interaction
+    window.addEventListener('mousemove', (e) => {
+        mouse.x = e.clientX;
+        mouse.y = e.clientY;
+    });
+
+    function animate() {
+        ctx.clearRect(0, 0, width, height);
+
+        stars.forEach((star) => {
+            // Movement
+            star.x += star.speedX;
+            star.y += star.speedY;
+
+            // Wrap around screen edges
+            if (star.x < 0) star.x = width;
+            if (star.x > width) star.x = 0;
+            if (star.y < 0) star.y = height;
+            if (star.y > height) star.y = 0;
+
+            // Subtle twinking
+            star.alpha += Math.sin(Date.now() * star.twinkleSpeed) * 0.005;
+            star.alpha = Math.max(0.1, Math.min(1, star.alpha));
+
+            // Mouse proximity glow effect
+            const dx = mouse.x - star.x;
+            const dy = mouse.y - star.y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+            let drawAlpha = star.alpha;
+
+            if (dist < 120) {
+                const factor = 1 - dist / 120;
+                drawAlpha = Math.min(1, star.alpha + factor * 0.5);
+            }
+
+            // Draw star
+            ctx.beginPath();
+            ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(255, 255, 255, ${drawAlpha})`;
+            ctx.fill();
+        });
+
+        requestAnimationFrame(animate);
+    }
+
+    animate();
+}
+
 // App Initialization
 window.onload = () => {
+    initStarfield();
     renderPlanetCards();
 
     const calcBtn = document.getElementById('calcBtn');

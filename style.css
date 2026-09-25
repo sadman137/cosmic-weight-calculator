@@ -398,6 +398,17 @@ button#calcBtn:hover {
     color: var(--text-muted);
 }
 
+/* Stars Canvas Background */
+#starsCanvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    pointer-events: none;
+}
+
 /* Responsive Layout Adjustments */
 
 /* Tablet & Smaller Screens (under 900px) */
