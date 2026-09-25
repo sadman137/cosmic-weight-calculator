@@ -22,6 +22,7 @@ function renderPlanetCards() {
         const item = document.createElement('div');
         item.className = 'planet-item';
         item.setAttribute('data-planet', planet.name);
+        item.onclick = () => triggerJump(index);
 
         item.innerHTML = `
             <div class="jumper-container">
@@ -36,6 +37,22 @@ function renderPlanetCards() {
 
         grid.appendChild(item);
     });
+}
+
+// 3. Jump Physics Trigger
+function triggerJump(index) {
+    const planet = planets[index];
+    const jumper = document.getElementById(`jumper-${index}`);
+
+    if (!jumper) return;
+
+    jumper.classList.remove('jumping');
+    void jumper.offsetWidth;
+
+    jumper.style.setProperty('--jump-height', `${planet.jumpHeight}px`);
+    jumper.style.setProperty('--jump-duration', `${planet.duration}s`);
+
+    jumper.classList.add('jumping');
 }
 
 window.onload = () => {
