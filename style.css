@@ -364,6 +364,14 @@ button#calcBtn:hover {
     filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.3));
 }
 
+/* Accessibility Focus Ring for Planet Cards */
+.planet-item:focus-visible,
+.earth-visual-container:focus-visible {
+    outline: 1px solid rgba(255, 255, 255, 0.7);
+    outline-offset: 6px;
+    border-radius: 8px;
+}
+
 .planet-item[data-planet="Saturn"] .planet-img {
     height: 125px;
     max-width: 150%;
