@@ -12,6 +12,8 @@ const planets = [
 
 const astronautImagePath = "assets/ASTRONAUT.png";
 
+let activePlanetIndex = -1
+
 // 2. Render Planet Grid
 function renderPlanetCards() {
     const grid = document.getElementById('planetsGrid');
@@ -22,7 +24,7 @@ function renderPlanetCards() {
         const item = document.createElement('div');
         item.className = 'planet-item';
         item.setAttribute('data-planet', planet.name);
-        item.onclick = () => triggerJump(index);
+        item.onclick = () => handlePlanetClick(index);
 
         item.innerHTML = `
             <div class="jumper-container">
@@ -32,27 +34,46 @@ function renderPlanetCards() {
                 <img class="planet-img" src="assets/${planet.file}" alt="${planet.name}">
             </div>
             <div class="planet-name">${planet.name}</div>
-            <div class="planet-weight-display" id="weight-${index}>--</div>  
+            <div class="planet-weight-display" id="weight-${index}">--</div>  
         `;
 
         grid.appendChild(item);
     });
 }
 
-// 3. Jump Physics Trigger
-function triggerJump(index) {
+// 3. Jump Physics Trigger (Handle Planet Click)
+function handlePlanetClick(index) {
     const planet = planets[index];
     const jumper = document.getElementById(`jumper-${index}`);
 
     if (!jumper) return;
 
-    jumper.classList.remove('jumping');
-    void jumper.offsetWidth;
+    // A. Clicked DIFFERENT planet
+    if (activePlanetIndex !== index) {
+        // Remove active & jumping state from previous planet
+        if (activePlanetIndex !== -1) {
+            const prevJumper = document.getElementById(`jumper-${activePlanetIndex}`);
+            if (prevJumper) {
+                prevJumper.classList.remove('active', 'jumping');
+            }
+        }
 
-    jumper.style.setProperty('--jump-height', `${planet.jumpHeight}px`);
-    jumper.style.setProperty('--jump-duration', `${planet.duration}s`);
+        // Set new active planet and show standing astronaut
+        activePlanetIndex = index;
+        jumper.classList.add('active');
+        jumper.classList.remove('jumping');
+    }
 
-    jumper.classList.add('jumping');
+    // B. Clicked SAME planet
+    else {
+        jumper.classList.remove('jumping');
+        void jumper.offsetWidth;
+
+        jumper.style.setProperty('--jump-height', `${planet.jumpHeight}px`);
+        jumper.style.setProperty('--jump-duration', `${planet.duration}s`);
+
+        jumper.classList.add('jumping');
+    }
 }
 
 window.onload = () => {
