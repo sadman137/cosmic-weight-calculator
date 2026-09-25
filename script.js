@@ -164,6 +164,21 @@ function initStarfield() {
     window.addEventListener('resize', () => {
         width = canvas.width = window.innerWidth;
         height = canvas.height = window.innerHeight;
+
+        const newNumStars = Math.floor((width * height) / 3000);
+        stars.length = 0;
+
+        for (let i = 0; i < newNumStars; i++) {
+            stars.push({
+                x: Math.random() * width,
+                y: Math.random() * height,
+                radius: Math.random() * 1.2 + 0.3,
+                alpha: Math.random() * 0.8 + 0.2,
+                speedX: (Math.random() - 0.5) * 0.15,
+                speedY: (Math.random() - 0.5) * 0.15,
+                twinkleSpeed: Math.random() * 0.02 + 0.005
+            });
+        }
     });
 
     // Track mouse position for soft interaction
