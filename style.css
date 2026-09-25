@@ -389,3 +389,70 @@ button#calcBtn:hover {
     margin-top: 6px;
     color: var(--text-muted);
 }
+
+/* Responsive Layout Adjustments */
+
+/* Tablet & Smaller Screens (under 900px) */
+@media (max-width: 900px) {
+    body {
+        padding: 30px 16px;
+    }
+
+    header {
+        margin-bottom: 50px;
+    }
+
+    header h1 {
+        font-size: 1.6rem;
+        letter-spacing: 4px;
+    }
+
+    /* Stack top section vertically */
+    .top-container {
+        grid-template-columns: 1fr;
+        gap: 40px;
+        margin-bottom: 60px;
+    }
+
+    .calculator-card {
+        grid-column: 1 / -1;
+        padding-left: 0;
+        align-items: center;
+    }
+
+    .calculator-card::after {
+        left: 0;
+        right: 0;
+    }
+
+    .calculator-card-content,
+    .calculator-card label {
+        text-align: center;
+        align-items: center;
+    }
+
+    .input-group {
+        justify-content: center;
+    }
+
+    button#calcBtn {
+        align-self: center;
+    }
+
+    .earth-hero-card {
+        grid-column: 1 / -1;
+        grid-template-columns: 1fr 1fr;
+        padding-bottom: 20px;
+    }
+
+    .earth-hero-card::after {
+        left: 0;
+        right: 0;
+    }
+
+    /* 2 columns for planets on tablets */
+    .planets-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 50px 20px;
+    }
+}
