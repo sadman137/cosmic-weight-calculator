@@ -442,7 +442,18 @@ button#calcBtn:hover {
     .earth-hero-card {
         grid-column: 1 / -1;
         grid-template-columns: 1fr 1fr;
-        padding-bottom: 20px;
+        gap: 20px;
+        align-items: center;
+    }
+
+    .earth-info-column {
+        align-items: flex-start;
+        text-align: left;
+        padding-left: calc(45% - 30px);
+    }
+
+    .earth-info-column h2 {
+        text-align: left;
     }
 
     .earth-hero-card::after {
@@ -469,20 +480,22 @@ button#calcBtn:hover {
 
     /* Stack Earth card content vertically on small mobile */
     .earth-hero-card {
-        grid-template-columns: 1fr;
-        gap: 20px;
+        grid-template-columns: 1fr 1fr;
+        gap: 15px;
     }
 
-    .earth-info-column {
-        align-items: center;
-        text-align: center;
+    .weight-tag {
+        font-size: 1.4 rem;
     }
 
-    .earth-info-column h2 {
-        text-align: center;
+    .gravity-tag {
+        font-size: 0.75 rem;
     }
 
-    /* Single column layout for planets on mobile */
+    .planet-img.earth-img {
+        height: 75px;
+    }
+
     .planets-grid {
         grid-template-columns: repeat(2, 1fr);
         gap: 40px 15px;
