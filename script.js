@@ -1,4 +1,4 @@
-// Planet Dataset
+// Planetary Data
 const planets = [
     { name: "MOON", gravity: 0.166, file: "MOON.png", jumpHeight: -140, duration: 1.8 },
     { name: "MERCURY", gravity: 0.38, file: "MERCURY.png", jumpHeight: -90, duration: 1.2 },
@@ -10,13 +10,13 @@ const planets = [
     { name: "NEPTUNE", gravity: 1.12, file: "NEPTUNE.png", jumpHeight: -45, duration: 0.7 },
 ];
 
-// Astronaut
+// Configuration
 const astronautImagePath = "assets/ASTRONAUT.png";
+const earthPlanet = { name: "EARTH", gravity: 1.0, jumpHeight: -60, duration: 0.85 };
 
-// Earth
-const earthPlanet = { name: "EARTH", gravity:1.0, jumpHeight: -60, duration: 0.85 };
+let activePlanetIndex = -1;
 
-// Handle clicking on Earth
+// Earth Click Handler
 function handleEarthClick() {
     const jumper = document.getElementById('jumper-earth');
     if (!jumper) return;
@@ -30,9 +30,7 @@ function handleEarthClick() {
     jumper.classList.add('active', 'jumping');
 }
 
-let activePlanetIndex = -1
-
-// Render Planet Grid
+// Grid Initialization
 function renderPlanetCards() {
     const grid = document.getElementById('planetsGrid');
     if (!grid) return;
@@ -59,7 +57,7 @@ function renderPlanetCards() {
     });
 }
 
-// Jump Physics Trigger (Handle Planet Click)
+// Planet Click Handler
 function handlePlanetClick(index) {
     const planet = planets[index];
     const jumper = document.getElementById(`jumper-${index}`);
@@ -84,6 +82,7 @@ function handlePlanetClick(index) {
     jumper.classList.add('active', 'jumping');
 }
 
+// App Initialization
 window.onload = () => {
     renderPlanetCards();
 };
