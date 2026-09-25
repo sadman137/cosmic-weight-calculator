@@ -1,4 +1,4 @@
-// 1. Planet Dataset
+// Planet Dataset
 const planets = [
     { name: "MOON", gravity: 0.166, file: "MOON.png", jumpHeight: -140, duration: 1.8 },
     { name: "MERCURY", gravity: 0.38, file: "MERCURY.png", jumpHeight: -90, duration: 1.2 },
@@ -10,11 +10,38 @@ const planets = [
     { name: "NEPTUNE", gravity: 1.12, file: "NEPTUNE.png", jumpHeight: -45, duration: 0.7 },
 ];
 
+// Astronaut
 const astronautImagePath = "assets/ASTRONAUT.png";
+
+// Earth
+const earthPlanet = { name: "EARTH", gravity:1.0, jumpHeight: -60, duration: 0.85 };
+
+// Handle clicking on Earth
+function handleEarthClick() {
+    const jumper = document.getElementById('jumper-earth');
+    if (!jumper) return;
+
+    if (activePlanetIndex !== -1 && activePlanetIndex !== 'earth') {
+        const prevJumper = document.getElementById(`jumper-${activePlanetIndex}`);
+        if (prevJumper) {
+            prevJumper.classList.remove('active', 'jumping');
+        }
+    }
+
+    activePlanetIndex = 'earth';
+
+    jumper.style.setProperty('--jump-height', `${earthPlanet.jumpHeight}px`);
+    jumper.style.setProperty('--jump-duration', `${earthPlanet.duration}s`);
+
+    jumper.classList.remove('jumping');
+    void jumper.offsetWidth;
+
+    jumper.classList.add('active', 'jumping');
+}
 
 let activePlanetIndex = -1
 
-// 2. Render Planet Grid
+// Render Planet Grid
 function renderPlanetCards() {
     const grid = document.getElementById('planetsGrid');
     if (!grid) return;
@@ -41,17 +68,23 @@ function renderPlanetCards() {
     });
 }
 
-// 3. Jump Physics Trigger (Handle Planet Click)
+// Jump Physics Trigger (Handle Planet Click)
 function handlePlanetClick(index) {
     const planet = planets[index];
     const jumper = document.getElementById(`jumper-${index}`);
 
     if (!jumper) return;
 
-    if (activePlanetIndex !== index && activePlanetIndex !== -1) {
-        const prevJumper = document.getElementById(`jumper-${activePlanetIndex}`);
-        if (prevJumper) {
+    if (activePlanetIndex !== index) {
+        if (activePlanetIndex === 'earth') {
+            const earthJumper = document.getElementById('jumper-earth');
+            if (earthJumper) earthJumper.classList.remove('active', 'jumping');
+        }
+        else if (activePlanetIndex !== -1) {
+            const prevJumper = document.getElementById(`jumper-${activePlanetIndex}`);
+            if (prevJumper) {
             prevJumper.classList.remove('active', 'jumping');
+            }
         }
     }
 

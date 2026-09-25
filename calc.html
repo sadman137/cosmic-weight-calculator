@@ -32,11 +32,20 @@
             </div>
 
             <!-- Earth Display Box -->
-            <div class="earth-hero-card" id="earthHero">
+            <div class="earth-hero-card planet-item" id="earthHero" onclick="handleEarthClick()">
                 <h2>Earth</h2>
+
+                <div class="jumper-container">
+                    <img id="jumper-earth" class="astronaut-img" src="assets/ASTRONAUT.png" alt="Astronaut">
+                </div>
+
+                <div class="planet-visual-container">
+                    <img class="planet-img" src="assets/EARTH.png" alt="EARTH">
+                </div>
+
                 <div class="earth-display">
                     <span class="weight-tag" id="earthDisplayWeight">70.0 kg</span>
-                    <span class="gravity-tag">Gravity: 1.00 g (9.8 m/s²)</span>
+                    <span class="gravity-tag">1.00 g (9.8 m/s²)</span>
                 </div>
             </div>
         </section>
