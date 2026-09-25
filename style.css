@@ -183,12 +183,12 @@ button#calcBtn:hover {
 }
 
 .astronaut-img {
-    width: 36px;
+    width: 38px;
     height: auto;
     display: block;
     opacity: 0;
     pointer-events: none;
-    transition: opacity 0.2s ease;
+    transition: opacity 0.25s ease;
 }
 
 .astronaut-img.active {
@@ -201,9 +201,9 @@ button#calcBtn:hover {
 }
 
 @keyframes jumpVar {
-    0%   { transform: translateY(0); opacity: 1; }
-    50%  { transform: translateY(var(--jump-height, -90px)); opacity: 1; }
-    100% { transform: translateY(0); opacity: 1; }
+    0%   { transform: translateY(0); }
+    50%  { transform: translateY(var(--jump-height, -90px)); }
+    100% { transform: translateY(0); }
 }
 
 /* Planets Visual Area */

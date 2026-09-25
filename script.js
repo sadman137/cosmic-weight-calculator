@@ -48,32 +48,22 @@ function handlePlanetClick(index) {
 
     if (!jumper) return;
 
-    // A. Clicked DIFFERENT planet
-    if (activePlanetIndex !== index) {
-        // Remove active & jumping state from previous planet
-        if (activePlanetIndex !== -1) {
-            const prevJumper = document.getElementById(`jumper-${activePlanetIndex}`);
-            if (prevJumper) {
-                prevJumper.classList.remove('active', 'jumping');
-            }
+    if (activePlanetIndex !== index && activePlanetIndex !== -1) {
+        const prevJumper = document.getElementById(`jumper-${activePlanetIndex}`);
+        if (prevJumper) {
+            prevJumper.classList.remove('active', 'jumping');
         }
-
-        // Set new active planet and show standing astronaut
-        activePlanetIndex = index;
-        jumper.classList.add('active');
-        jumper.classList.remove('jumping');
     }
 
-    // B. Clicked SAME planet
-    else {
-        jumper.classList.remove('jumping');
-        void jumper.offsetWidth;
+    activePlanetIndex = index;
 
-        jumper.style.setProperty('--jump-height', `${planet.jumpHeight}px`);
-        jumper.style.setProperty('--jump-duration', `${planet.duration}s`);
+    jumper.style.setProperty('--jump-height', `${planet.jumpHeight}px`);
+    jumper.style.setProperty('--jump-duration', `${planet.duration}s`);
 
-        jumper.classList.add('jumping');
-    }
+    jumper.classList.remove('jumping');
+    void jumper.offsetWidth;
+
+    jumper.classList.add('active', 'jumping');
 }
 
 window.onload = () => {
