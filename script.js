@@ -16,6 +16,38 @@ const earthPlanet = { name: "EARTH", gravity: 1.0, jumpHeight: -60, duration: 0.
 
 let activePlanetIndex = -1;
 
+// Calculation Logic
+function calculatePlanetWeights() {
+    const earthInput = document.getElementById('earthWeight');
+    const unitSelect = document.getElementById('unitSelect');
+
+    if (!earthInput) return;
+
+    const rawValue = earthInput.value.trim();
+    const earthWeight = parseFloat(rawValue);
+
+    if (isNaN(earthWeight) || earthWeight <= 0) {
+        return;
+    }
+
+    const currentUnit = unitSelect ? unitSelect.value : 'kg';
+
+    // Update Earth Display Weight
+    const earthWeightDisplay = document.querySelector('.earth-hero-card .weight-tag');
+    if (earthWeightDisplay) {
+        earthWeightDisplay.textContent = `${earthWeight.toFixed(1)} ${currentUnit}`;
+    }
+
+    // Update weights for all other planets
+    planets.forEach((planet, index) => {
+        const weightDisplay = document.getElementById(`weight-${index}`);
+        if (weightDisplay) {
+            const calculatedWeight = (earthWeight * planet.gravity).toFixed(1);
+            weightDisplay.textContent = `${calculatedWeight} ${currentUnit}`;
+        }
+    });
+}
+
 // Earth Click Handler
 function handleEarthClick() {
     const jumper = document.getElementById('jumper-earth');
@@ -85,4 +117,25 @@ function handlePlanetClick(index) {
 // App Initialization
 window.onload = () => {
     renderPlanetCards();
+
+    const unitSelect = document.getElementById('unitSelect');
+    if (unitSelect) {
+        unitSelect.addEventListener('change', calculatePlanetWeights);
+    }
+
+    // Attach button listener and Enter key trigger
+    const calcBtn = document.getElementById('calcBtn');
+    const earthInput = document.getElementById('earthWeight');
+
+    if (calcBtn) {
+        calcBtn.addEventListener('click', calculatePlanetWeights);
+    }
+
+    if (earthInput) {
+        earthInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                calculatePlanetWeights();
+            }
+        });
+    }
 };
