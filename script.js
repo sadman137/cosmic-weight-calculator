@@ -26,7 +26,15 @@ function calculatePlanetWeights() {
     const rawValue = earthInput.value.trim();
     const earthWeight = parseFloat(rawValue);
 
+    // Reset display if input is cleared or invalid
     if (isNaN(earthWeight) || earthWeight <= 0) {
+        const earthWeightDisplay = document.querySelector('.earth-hero-card .weight-tag');
+        if (earthWeightDisplay) earthWeightDisplay.textContent = `--`;
+
+        planets.forEach((_, index) => {
+            const weightDisplay = document.getElementById(`weight-${index}`);
+            if (weightDisplay) weightDisplay.textContent = `--`;
+        });
         return;
     }
 
@@ -46,6 +54,9 @@ function calculatePlanetWeights() {
             weightDisplay.textContent = `${calculatedWeight} ${currentUnit}`;
         }
     });
+
+    // Trigger Earth jump animation on successful calculation
+    handleEarthClick();
 }
 
 // Earth Click Handler
@@ -118,14 +129,9 @@ function handlePlanetClick(index) {
 window.onload = () => {
     renderPlanetCards();
 
-    const unitSelect = document.getElementById('unitSelect');
-    if (unitSelect) {
-        unitSelect.addEventListener('change', calculatePlanetWeights);
-    }
-
-    // Attach button listener and Enter key trigger
     const calcBtn = document.getElementById('calcBtn');
     const earthInput = document.getElementById('earthWeight');
+    const unitSelect = document.getElementById('unitSelect');
 
     if (calcBtn) {
         calcBtn.addEventListener('click', calculatePlanetWeights);
@@ -137,5 +143,11 @@ window.onload = () => {
                 calculatePlanetWeights();
             }
         });
+
+        earthInput.addEventListener('input', calculatePlanetWeights);
+    }
+
+    if (unitSelect) {
+        unitSelect.addEventListener('change', calculatePlanetWeights);
     }
 };
