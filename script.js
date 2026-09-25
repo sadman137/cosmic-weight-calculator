@@ -83,7 +83,16 @@ function renderPlanetCards() {
         const item = document.createElement('div');
         item.className = 'planet-item';
         item.setAttribute('data-planet', planet.name);
+        item.setAttribute('tabindex', '0');
+        item.setAttribute('aria-label', `Jump on ${planet.name}`);
+
         item.onclick = () => handlePlanetClick(index);
+        item.onkeydown = (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                handlePlanetClick(index);
+            }
+        }
 
         item.innerHTML = `
             <div class="jumper-container">
