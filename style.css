@@ -133,10 +133,41 @@ button#calcBtn:hover {
     color: #000;
 }
 
-.earth-display {
+/* Earth Hero Card Layout */
+.earth-hero-card {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 30px;
+    cursor: pointer;
+}
+
+.earth-info-column {
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    justify-content: center;
+}
+
+.earth-visual-column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+
+/* Larger Earth Image */
+.planet-img.earth-img {
+    height: 110px;
+    width: auto;
+    object-fit: contain;
+    transition: transform 0.4s ease, filter 0.4s ease;
+    filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.2));
+}
+
+.earth-hero-card:hover .earth-img {
+    transform: scale(1.08);
+    filter: drop-shadow(0 0 18px rgba(255, 255, 255, 0.35));
 }
 
 .weight-tag {
