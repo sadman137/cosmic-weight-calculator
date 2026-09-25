@@ -21,15 +21,6 @@ function handleEarthClick() {
     const jumper = document.getElementById('jumper-earth');
     if (!jumper) return;
 
-    if (activePlanetIndex !== -1 && activePlanetIndex !== 'earth') {
-        const prevJumper = document.getElementById(`jumper-${activePlanetIndex}`);
-        if (prevJumper) {
-            prevJumper.classList.remove('active', 'jumping');
-        }
-    }
-
-    activePlanetIndex = 'earth';
-
     jumper.style.setProperty('--jump-height', `${earthPlanet.jumpHeight}px`);
     jumper.style.setProperty('--jump-duration', `${earthPlanet.duration}s`);
 
@@ -75,16 +66,10 @@ function handlePlanetClick(index) {
 
     if (!jumper) return;
 
-    if (activePlanetIndex !== index) {
-        if (activePlanetIndex === 'earth') {
-            const earthJumper = document.getElementById('jumper-earth');
-            if (earthJumper) earthJumper.classList.remove('active', 'jumping');
-        }
-        else if (activePlanetIndex !== -1) {
-            const prevJumper = document.getElementById(`jumper-${activePlanetIndex}`);
-            if (prevJumper) {
+    if (activePlanetIndex !== index && activePlanetIndex !== -1) {
+        const prevJumper = document.getElementById(`jumper-${activePlanetIndex}`);
+        if (prevJumper) {
             prevJumper.classList.remove('active', 'jumping');
-            }
         }
     }
 

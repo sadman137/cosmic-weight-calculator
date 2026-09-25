@@ -55,29 +55,92 @@ header p {
 /* Top Section Layout */
 .top-container {
     display: flex;
-    justify-content: center;
-    gap: 30px;
-    max-width: 800px;
+    justify-content: space-between;
+    align-items: flex-start;
+    max-width: 1100px;
+    gap: 40px;
     margin: 0 auto 60px auto;
-    flex-wrap: wrap;
+    box-sizing: border-box;
 }
 
-.calculator-box, .earth-hero-box {
+/* Calculator Card */
+.calculator-card {
     flex: 1;
-    min-width: 260px;
-    padding: 20px;
+    min-width: 320px;
+    padding-bottom: 15px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+/* Earth Hero Card Layout */
+.earth-hero-card {
+    flex: 2;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding-bottom: 15px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+    cursor: pointer;
+}
+
+.earth-info-column {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
+    margin-left: 20px;
 }
 
-label, h2 {
+label, .earth-info-column h2 {
     font-size: 0.8rem;
     font-weight: 300;
     letter-spacing: 3px;
     color: var(--text-muted);
     margin-bottom: 12px;
+    margin-top: 0;
+    line-height: 1;
+}
+
+.earth-info-column h2 {
+    color: #ffffff;
+    text-transform: uppercase;
+}
+
+.earth-display {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-top: 4px;
+}
+
+.earth-visual-column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    width: 200px;
+}
+
+/* Larger Earth Image */
+.planet-img.earth-img {
+    height: 100px;
+    width: auto;
+    object-fit: contain;
+    transition: transform 0.4s ease, filter 0.4s ease;
+    filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.2));
+}
+
+.earth-hero-card:hover .earth-img {
+    transform: scale(1.08);
+    filter: drop-shadow(0 0 18px rgba(255, 255, 255, 0.35));
+}
+
+/* Earth Astronaut: Always visible & positioned higher*/
+.earth-visual-column .jumper-container {
+    margin-bottom: -8px;
+}
+
+#jumper-earth {
+    opacity: 1;
 }
 
 .input-group {
@@ -133,43 +196,6 @@ button#calcBtn:hover {
     color: #000;
 }
 
-/* Earth Hero Card Layout */
-.earth-hero-card {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    padding: 20px 30px;
-    cursor: pointer;
-}
-
-.earth-info-column {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-.earth-visual-column {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    position: relative;
-}
-
-/* Larger Earth Image */
-.planet-img.earth-img {
-    height: 110px;
-    width: auto;
-    object-fit: contain;
-    transition: transform 0.4s ease, filter 0.4s ease;
-    filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.2));
-}
-
-.earth-hero-card:hover .earth-img {
-    transform: scale(1.08);
-    filter: drop-shadow(0 0 18px rgba(255, 255, 255, 0.35));
-}
-
 .weight-tag {
     font-size: 1.8rem;
     font-weight: 200;
@@ -209,7 +235,7 @@ button#calcBtn:hover {
     display: flex;
     justify-content: center;
     align-items: flex-end;
-    margin-bottom: -12px;
+    margin-bottom: -18px;
     z-index: 10;
 }
 
