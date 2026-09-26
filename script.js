@@ -16,6 +16,54 @@ const earthPlanet = { name: "EARTH", gravity: 1.0, jumpHeight: -60, duration: 0.
 
 let activePlanetIndex = -1;
 
+// Sounds
+let soundEnabled = true;
+let audioCtx = null;
+
+function getAudioContext() {
+    if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    }
+    if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+    }
+    return audioCtx;
+}
+
+function playJumpSound() {
+    if (!soundEnabled) return;
+
+    try {
+        const ctx = getAudioContext();
+
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        const filter = audioCtx.createBiquadFilter();
+
+        filter.type = 'lowpass';
+        filter.frequency.setValueAtTime(800, ctx.currentTime);
+
+        osc.type = 'sine';
+
+        // Pitch sweeps for jump effect
+        osc.frequency.setValueAtTime(140, ctx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(320, audioCtx.currentTime + 0.15);
+
+        gain.gain.setValueAtTime(0.18, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.15);
+
+        osc.connect(filter);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+
+        osc.start();
+        osc.stop(ctx.currentTime + 0.12);
+    }
+    catch (e) {
+        console.warn("Audio Context could not play:", e);
+    }
+}
+
 // Weight Counter Animation
 function animateValue(element, start, end, duration, unit) {
     if (!element) return;
@@ -77,6 +125,8 @@ function calculatePlanetWeights() {
 
 // Earth Click Handler
 function handleEarthClick() {
+    playJumpSound();
+
     const jumper = document.getElementById('jumper-earth');
     if (!jumper) return;
 
@@ -127,6 +177,8 @@ function renderPlanetCards() {
 
 // Planet Click Handler
 function handlePlanetClick(index) {
+    playJumpSound();
+
     const planet = planets[index];
     const jumper = document.getElementById(`jumper-${index}`);
 
