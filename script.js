@@ -16,6 +16,22 @@ const earthPlanet = { name: "EARTH", gravity: 1.0, jumpHeight: -60, duration: 0.
 
 let activePlanetIndex = -1;
 
+// Weight Counter Animation
+function animateValue(element, start, end, duration, unit) {
+    if (!element) return;
+    let startTimestamp = null;
+    const step = (timestamp) => {
+        if (!startTimestamp) startTimestamp = timestamp;
+        const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+        const currentValue = (progress * (end - start) + start).toFixed(1);
+        element.textContent = `${currentValue} ${unit}`;
+        if (progress < 1) {
+            window.requestAnimationFrame(step);
+        }
+    };
+    window.requestAnimationFrame(step)
+}
+
 // Calculation Logic
 function calculatePlanetWeights() {
     const earthInput = document.getElementById('earthWeight');
@@ -43,15 +59,15 @@ function calculatePlanetWeights() {
     // Update Earth Display Weight
     const earthWeightDisplay = document.querySelector('.earth-hero-card .weight-tag');
     if (earthWeightDisplay) {
-        earthWeightDisplay.textContent = `${earthWeight.toFixed(1)} ${currentUnit}`;
+        animateValue(earthWeightDisplay, 0, earthWeight, 400, currentUnit);
     }
 
     // Update weights for all other planets
     planets.forEach((planet, index) => {
         const weightDisplay = document.getElementById(`weight-${index}`);
         if (weightDisplay) {
-            const calculatedWeight = (earthWeight * planet.gravity).toFixed(1);
-            weightDisplay.textContent = `${calculatedWeight} ${currentUnit}`;
+            const calculatedWeight = parseFloat((earthWeight * planet.gravity).toFixed(1));
+            animateValue(weightDisplay, 0, calculatedWeight, 400, currentUnit);
         }
     });
 
