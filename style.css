@@ -167,7 +167,8 @@ select {
 
 .button-group {
     display: flex;
-    gap: 10 px;
+    align-items: center;
+    gap: 16px;
     align-self: flex-start;
 }
 
@@ -177,10 +178,10 @@ select {
     color: var(--text-muted);
     font-weight: 300;
     letter-spacing: 1.5px;
-    padding: 8px 16px;
+    padding: 8px 18px;
     border-radius: 20px;
     cursor: pointer;
-    font-size: 0.75rem;
+    font-size: 0.8rem;
     transition: all 0.3 ease;
     height: 35px;
     line-height: 1;
@@ -202,7 +203,6 @@ button#calcBtn {
     cursor: pointer;
     font-size: 0.8rem;
     transition: all 0.3s ease;
-    align-self: flex-start;
     height: 35px;
     line-height: 1;
 }
@@ -493,8 +493,13 @@ button#calcBtn:hover {
         justify-content: center;
     }
 
-    button#calcBtn {
+    .button-group {
         align-self: center;
+        justify-content: center;
+    }
+
+    button#calcBtn {
+        align-self: auto
     }
 
     .earth-hero-card {
