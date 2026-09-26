@@ -2,12 +2,12 @@
 const planets = [
     { name: "MOON", gravity: 0.166, gravityMs2: 1.62, file: "MOON.png", jumpHeight: -140, duration: 1.8 },
     { name: "MERCURY", gravity: 0.38, gravityMs2: 3.70, file: "MERCURY.png", jumpHeight: -90, duration: 1.2 },
-    { name: "VENUS", gravity: 0.91, gravityMs2: 8.87, file: "VENUS.png", jumpHeight: -55, duration: 0.8 },
-    { name: "MARS", gravity: 0.38, gravityMs2: 3.72, file: "MARS.png", jumpHeight: -90, duration: 1.2 },
-    { name: "JUPITER", gravity: 2.36, gravityMs2: 23.1, file: "JUPITER.png", jumpHeight: -20, duration: 0.4 },
-    { name: "SATURN", gravity: 0.92, gravityMs2: 9.0, file: "SATURN.png", jumpHeight: -54, duration: 0.8 },
-    { name: "URANUS", gravity: 0.89, gravityMs2: 8.87, file: "URANUS.png", jumpHeight: -56, duration: 0.85 },
-    { name: "NEPTUNE", gravity: 1.12, gravityMs2: 11.0, file: "NEPTUNE.png", jumpHeight: -45, duration: 0.7 },
+    { name: "VENUS", gravity: 0.90, gravityMs2: 8.87, file: "VENUS.png", jumpHeight: -55, duration: 0.8 },
+    { name: "MARS", gravity: 0.38, gravityMs2: 3.71, file: "MARS.png", jumpHeight: -90, duration: 1.2 },
+    { name: "JUPITER", gravity: 2.53, gravityMs2: 24.8, file: "JUPITER.png", jumpHeight: -20, duration: 0.4 },
+    { name: "SATURN", gravity: 1.06, gravityMs2: 10.4, file: "SATURN.png", jumpHeight: -54, duration: 0.8 },
+    { name: "URANUS", gravity: 0.90, gravityMs2: 8.87, file: "URANUS.png", jumpHeight: -56, duration: 0.85 },
+    { name: "NEPTUNE", gravity: 1.14, gravityMs2: 11.15, file: "NEPTUNE.png", jumpHeight: -45, duration: 0.7 },
 ];
 
 // Configuration
