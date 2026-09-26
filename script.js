@@ -298,17 +298,121 @@ function initStarfield() {
     animate();
 }
 
+// Dynamic Canvas Image Generator for Results
+function generateResultsImage() {
+    const earthInput = document.getElementById('earthWeight');
+    const unitSelect = document.getElementById('unitSelect');
+
+    const rawValue = earthInput ? earthInput.value.trim() : '';
+    const earthWeight = parseFloat(rawValue);
+
+    if (isNaN(earthWeight) || earthWeight <= 0) {
+        alert("Please enter a valid weight first!");
+        return;
+    }
+
+    const unit = unitSelect ? unitSelect.value : 'kg';
+
+    // Create off-screen canvas element
+    const canvas = document.createElement('canvas');
+    canvas.width = 600;
+    canvas.height = 720;
+    const ctx = canvas.getContext('2d');
+
+    // Background Fill
+    ctx.fillStyle = '#050508';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    // Starfield Background Overlay
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.7)';
+    for (let i = 0; i < 90; i++) {
+        const x = Math.random() * canvas.width;
+        const y = Math.random() * canvas.height;
+        const radius = Math.random() * 1.3 + 0.2;
+        ctx.beginPath();
+        ctx.arc(x, y, radius, 0, Math.PI * 2);
+        ctx.fill();
+    }
+
+    // Header Title
+    ctx.fillStyle = '#ffffff';
+    ctx.font = '300 22px system-ui';
+    ctx.textAlign = 'center';
+    ctx.letterSpacing = '4px';
+    ctx.fillText('COSMIC GRAVITY JUMPER', canvas.width / 2, 60);
+
+    // Subtitle / Earth Weight Info
+    ctx.fillStyle = '#8e8ea0';
+    ctx.font = '300 14px system-ui';
+    ctx.fillText(`EARTH WEIGHT: ${earthWeight} ${unit}`, canvas.width / 2, 95);
+
+    // Separator Line
+    ctx.strokeStyle = 'rgba(255, 255, 255, 0.15)';
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(80, 120);
+    ctx.lineTo(520, 120);
+    ctx.stroke();
+
+    // Planet Grid Setup (2 Columns)
+    const startY = 170;
+    ctx.textAlign = 'left';
+
+    planets.forEach((planet, index) => {
+        const calculated = (earthWeight * planet.gravity).toFixed(1);
+        const col = index % 2 === 0 ? 100 : 340;
+        const rowY = startY + Math.floor(index / 2) * 90;
+
+        // Planet Name
+        ctx.fillStyle = '#ffffff';
+        ctx.font = '300 16px system-ui';
+        ctx.fillText(planet.name, col, rowY);
+
+        // Calculated Weight & Unit
+        ctx.fillStyle = '#8e8ea0';
+        ctx.font = '200 20px system-ui';
+        ctx.fillText(`${calculated} ${unit}`, col, rowY + 28);
+    });
+
+    // Footer Watermark
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.3)';
+    ctx.font = '200 11px system-ui';
+    ctx.textAlign = 'center';
+    ctx.fillText('Generated via Cosmic Gravity Jumper', canvas.width / 2, 685);
+
+    // Trigger Image Download
+    const link = document.createElement('a');
+    link.download = `cosmic-weights-${earthWeight}${unit}.png`;
+    link.href = canvas.toDataURL('image/png');
+    link.click();
+
+    // Temporary Button UI Feedback
+    const shareBtn = document.getElementById('shareBtn');
+    if (shareBtn) {
+        const originalText = shareBtn.textContent;
+        shareBtn.textContent = 'SAVED IMAGE!';
+        setTimeout(() => {
+            shareBtn.textContent = originalText;
+        }, 2000);
+    }
+}
+
 // App Initialization
 window.onload = () => {
     initStarfield();
     renderPlanetCards();
 
     const calcBtn = document.getElementById('calcBtn');
+    const shareBtn = document.getElementById('shareBtn');
     const earthInput = document.getElementById('earthWeight');
     const unitSelect = document.getElementById('unitSelect');
 
     if (calcBtn) {
         calcBtn.addEventListener('click', calculatePlanetWeights);
+    }
+
+    if (shareBtn) {
+        shareBtn.addEventListener('click', generateResultsImage);
     }
 
     if (earthInput) {
