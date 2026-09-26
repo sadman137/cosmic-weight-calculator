@@ -299,101 +299,179 @@ function initStarfield() {
 }
 
 // Dynamic Canvas Image Generator for Results
-function generateResultsImage() {
-    const earthInput = document.getElementById('earthWeight');
-    const unitSelect = document.getElementById('unitSelect');
+async function generateResultsImage() {
+    try {
+        const earthInput = document.getElementById('earthWeight');
+        const unitSelect = document.getElementById('unitSelect');
 
-    const rawValue = earthInput ? earthInput.value.trim() : '';
-    const earthWeight = parseFloat(rawValue);
+        const rawValue = earthInput ? earthInput.value.trim() : '';
+        const earthWeight = parseFloat(rawValue);
 
-    if (isNaN(earthWeight) || earthWeight <= 0) {
-        alert("Please enter a valid weight first!");
-        return;
-    }
+        if (isNaN(earthWeight) || earthWeight <= 0) {
+            alert("Please enter a valid weight first!");
+            return;
+        }
 
-    const unit = unitSelect ? unitSelect.value : 'kg';
+        const unit = unitSelect ? unitSelect.value : 'kg';
 
-    // Create off-screen canvas element
-    const canvas = document.createElement('canvas');
-    canvas.width = 600;
-    canvas.height = 720;
-    const ctx = canvas.getContext('2d');
+        // Canvas ratio (9:16 / 1080x1920)
+        const canvas = document.createElement('canvas');
+        canvas.width = 1080;
+        canvas.height = 1920;
+        const ctx = canvas.getContext('2d');
 
-    // Background Fill
-    ctx.fillStyle = '#050508';
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
+        // Background Fill
+        ctx.fillStyle = '#050508';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    // Starfield Background Overlay
-    ctx.fillStyle = 'rgba(255, 255, 255, 0.7)';
-    for (let i = 0; i < 90; i++) {
-        const x = Math.random() * canvas.width;
-        const y = Math.random() * canvas.height;
-        const radius = Math.random() * 1.3 + 0.2;
-        ctx.beginPath();
-        ctx.arc(x, y, radius, 0, Math.PI * 2);
-        ctx.fill();
-    }
+        // Starfield Background Overlay
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.7)';
+        for (let i = 0; i < 220; i++) {
+            const x = Math.random() * canvas.width;
+            const y = Math.random() * canvas.height;
+            const radius = Math.random() * 2 + 0.4;
+            ctx.beginPath();
+            ctx.arc(x, y, radius, 0, Math.PI * 2);
+            ctx.fill();
+        }
 
-    // Header Title
-    ctx.fillStyle = '#ffffff';
-    ctx.font = '300 22px system-ui';
-    ctx.textAlign = 'center';
-    ctx.letterSpacing = '4px';
-    ctx.fillText('COSMIC GRAVITY JUMPER', canvas.width / 2, 60);
+        // Helper function to load planet images safely with CORS enabled
+        const loadImage = (src) => new Promise((resolve) => {
+            const img = new Image();
+            img.crossOrigin = 'anonymous';
+            img.onload = () => resolve(img);
+            img.onerror = () => resolve(null);
+            img.src = src;
+        });
 
-    // Subtitle / Earth Weight Info
-    ctx.fillStyle = '#8e8ea0';
-    ctx.font = '300 14px system-ui';
-    ctx.fillText(`EARTH WEIGHT: ${earthWeight} ${unit}`, canvas.width / 2, 95);
+        // Preload Earth + All Celestial Bodies
+        const earthImg = await loadImage('assets/EARTH.png');
+        const planetImages = await Promise.all(
+            planets.map(planet => loadImage(`assets/${planet.file}`))
+        );
 
-    // Separator Line
-    ctx.strokeStyle = 'rgba(255, 255, 255, 0.15)';
-    ctx.lineWidth = 1;
-    ctx.beginPath();
-    ctx.moveTo(80, 120);
-    ctx.lineTo(520, 120);
-    ctx.stroke();
-
-    // Planet Grid Setup (2 Columns)
-    const startY = 170;
-    ctx.textAlign = 'left';
-
-    planets.forEach((planet, index) => {
-        const calculated = (earthWeight * planet.gravity).toFixed(1);
-        const col = index % 2 === 0 ? 100 : 340;
-        const rowY = startY + Math.floor(index / 2) * 90;
-
-        // Planet Name
+        // Header Title
+        ctx.save();
+        ctx.shadowColor = 'rgba(255, 255, 255, 0.9)';
+        ctx.shadowBlur = 25;
         ctx.fillStyle = '#ffffff';
-        ctx.font = '300 16px system-ui';
-        ctx.fillText(planet.name, col, rowY);
+        ctx.font = '300 48px system-ui';
+        ctx.textAlign = 'center';
+        ctx.letterSpacing = '6px';
+        ctx.fillText('COSMIC GRAVITY JUMPER', canvas.width / 2, 190);
+        ctx.restore();
 
-        // Calculated Weight & Unit
+        // Top Separator Line
+        ctx.strokeStyle = 'rgba(255, 255, 255, 0.2)';
+        ctx.lineWidth = 1.5;
+        ctx.beginPath();
+        ctx.moveTo(120, 240);
+        ctx.lineTo(960, 240);
+        ctx.stroke();
+
+        // Earth Hero Section (Balanced centering for entire image + text group)
+        const earthY = 370;
+        const earthCenterX = 440; 
+        const earthTextX = 557;
+
+        if (earthImg) {
+            const earthSize = 115;
+            ctx.save();
+            ctx.shadowColor = 'rgba(255, 255, 255, 0.35)';
+            ctx.shadowBlur = 18;
+            ctx.drawImage(
+                earthImg, 
+                earthCenterX - (earthSize / 2), 
+                earthY - (earthSize / 2) + 15, 
+                earthSize, 
+                earthSize
+            );
+            ctx.restore();
+        }
+
+        ctx.textAlign = 'left';
+        ctx.fillStyle = '#ffffff';
+        ctx.font = '300 34px system-ui';
+        ctx.letterSpacing = '5px';
+        ctx.fillText('EARTH', earthTextX, earthY + 5);
+
         ctx.fillStyle = '#8e8ea0';
-        ctx.font = '200 20px system-ui';
-        ctx.fillText(`${calculated} ${unit}`, col, rowY + 28);
-    });
+        ctx.font = '200 38px system-ui';
+        ctx.letterSpacing = '1px';
+        ctx.fillText(`${earthWeight} ${unit}`, earthTextX, earthY + 52);
 
-    // Footer Watermark
-    ctx.fillStyle = 'rgba(255, 255, 255, 0.3)';
-    ctx.font = '200 11px system-ui';
-    ctx.textAlign = 'center';
-    ctx.fillText('Generated via Cosmic Gravity Jumper', canvas.width / 2, 685);
+        // Planet Grid Setup (Balanced 2-column layout)
+        const startY = 580;
+        const rowSpacing = 160;
 
-    // Trigger Image Download
-    const link = document.createElement('a');
-    link.download = `cosmic-weights-${earthWeight}${unit}.png`;
-    link.href = canvas.toDataURL('image/png');
-    link.click();
+        planets.forEach((planet, index) => {
+            const calculated = (earthWeight * planet.gravity).toFixed(1);
+            const isLeftCol = index % 2 === 0;
 
-    // Temporary Button UI Feedback
-    const shareBtn = document.getElementById('shareBtn');
-    if (shareBtn) {
-        const originalText = shareBtn.textContent;
-        shareBtn.textContent = 'SAVED IMAGE!';
-        setTimeout(() => {
-            shareBtn.textContent = originalText;
-        }, 2000);
+            // Fixed Center Coordinates for Planet Sprites
+            const imgCenterX = isLeftCol ? 170 : 640;
+            const rowY = startY + Math.floor(index / 2) * rowSpacing;
+
+            // Fixed Text Start X positions
+            const textX = isLeftCol ? 300 : 770;
+
+            // Draw Planet Asset Image with aspect ratio preserved
+            const planetImg = planetImages[index];
+            if (planetImg) {
+                const targetHeight = 85;
+                const aspectRatio = planetImg.width / planetImg.height;
+                const targetWidth = targetHeight * aspectRatio;
+
+                const imgX = imgCenterX - (targetWidth / 2);
+                const imgY = rowY - (targetHeight / 2) + 15;
+
+                ctx.save();
+                ctx.shadowColor = 'rgba(255, 255, 255, 0.25)';
+                ctx.shadowBlur = 12;
+                ctx.drawImage(planetImg, imgX, imgY, targetWidth, targetHeight);
+                ctx.restore();
+            }
+
+            // Planet Name
+            ctx.textAlign = 'left';
+            ctx.fillStyle = '#ffffff';
+            ctx.font = '300 28px system-ui';
+            ctx.letterSpacing = '4px';
+            ctx.fillText(planet.name, textX, rowY + 10);
+
+            // Calculated Weight & Unit
+            ctx.fillStyle = '#8e8ea0';
+            ctx.font = '200 32px system-ui';
+            ctx.letterSpacing = '1px';
+            ctx.fillText(`${calculated} ${unit}`, textX, rowY + 50);
+        });
+
+        // Footer Watermark
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.4)';
+        ctx.font = '200 22px system-ui';
+        ctx.textAlign = 'center';
+        ctx.letterSpacing = '2px';
+        ctx.fillText('Generated via Cosmic Gravity Jumper', canvas.width / 2, 1820);
+
+        // Trigger Image Download
+        const link = document.createElement('a');
+        link.download = `cosmic-weights-${earthWeight}${unit}.png`;
+        link.href = canvas.toDataURL('image/png');
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+
+        // Temporary Button UI Feedback
+        const shareBtn = document.getElementById('shareBtn');
+        if (shareBtn) {
+            const originalText = shareBtn.textContent;
+            shareBtn.textContent = 'SAVED IMAGE!';
+            setTimeout(() => {
+                shareBtn.textContent = originalText;
+            }, 2000);
+        }
+    } catch (err) {
+        console.error("Failed to generate image:", err);
     }
 }
 
@@ -412,7 +490,7 @@ window.onload = () => {
     }
 
     if (shareBtn) {
-        shareBtn.addEventListener('click', generateResultsImage);
+        shareBtn.onclick = generateResultsImage;
     }
 
     if (earthInput) {
