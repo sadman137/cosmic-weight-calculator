@@ -165,6 +165,32 @@ select {
     flex: 1;
 }
 
+.button-group {
+    display: flex;
+    gap: 10 px;
+    align-self: flex-start;
+}
+
+.share-btn {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    color: var(--text-muted);
+    font-weight: 300;
+    letter-spacing: 1.5px;
+    padding: 8px 16px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 0.75rem;
+    transition: all 0.3 ease;
+    height: 35px;
+    line-height: 1;
+}
+
+.share-btn:hover {
+    border-color: rgba(255, 255, 255, 0.8);
+    color: #fff;
+}
+
 button#calcBtn {
     background: transparent;
     border: 1px solid rgba(255, 255, 255, 0.4);
