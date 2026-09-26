@@ -451,7 +451,7 @@ async function generateResultsImage() {
         ctx.font = '200 22px system-ui';
         ctx.textAlign = 'center';
         ctx.letterSpacing = '2px';
-        ctx.fillText('Generated via Cosmic Gravity Jumper', canvas.width / 2, 1820);
+        ctx.fillText('Generated via https://cosmic-gravity-jumper.vercel.app/', canvas.width / 2, 1820);
 
         // Trigger Image Download
         const link = document.createElement('a');
