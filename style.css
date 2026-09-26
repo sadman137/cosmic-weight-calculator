@@ -182,14 +182,14 @@ select {
     border-radius: 20px;
     cursor: pointer;
     font-size: 0.8rem;
-    transition: all 0.3 ease;
+    transition: all 0.3s ease;
     height: 35px;
     line-height: 1;
 }
 
 .share-btn:hover {
-    border-color: rgba(255, 255, 255, 0.8);
-    color: #fff;
+    background: var(--text-muted);
+    color: #000;
 }
 
 button#calcBtn {
