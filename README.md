@@ -51,7 +51,5 @@ If you would like to run or inspect the code locally:
    ```
 3. Open `index.html` directly in your browser or run via VS Code **Live Server**.
 
----
-
 ## 👨‍💻 Author
 Built with 💖 for **Hack Club Stardance** by **SADMAN**.
