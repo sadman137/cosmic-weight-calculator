@@ -1,6 +1,6 @@
 # 🚀 Cosmic Gravity Jumper
 
-> Jump around the universe on different planets and bodies to calculate your weight there and generate instant shareable posters for your instagram story!
+Jump around the universe on different planets and bodies to calculate your weight there and generate instant shareable posters for your instagram story!
 
 ![Cosmic Gravity Jumper Preview](assets/preview.png)
 
