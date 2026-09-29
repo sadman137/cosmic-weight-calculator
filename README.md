@@ -1,18 +1,15 @@
 # 🚀 Cosmic Gravity Jumper
 
-> Calculate your cosmic weight across the solar system, simulate gravity jumps, and generate instant shareable posters!
+> Jump around the universe on different planets and bodies to calculate your weight there and generate instant shareable posters for your instagram story!
 
 ![Cosmic Gravity Jumper Preview](assets/preview.png)
 
 ## 🌐 Live Demo
 Play with the app live here: **[https://cosmic-gravity-jumper.vercel.app](https://cosmic-gravity-jumper.vercel.app)**
 
----
-
 ## 🌌 Overview
-**Cosmic Gravity Jumper** is an interactive space-physics web app built for **Hack Club Stardance**. Users can input their Earth weight to calculate real-time weight conversions across 8 celestial bodies and the Moon, interact with custom jumping animations influenced by planetary surface gravity, and download high-resolution 9:16 graphics for social media.
-
----
+**Cosmic Gravity Jumper** is an interactive space-physics web app built for **Hack Club Stardance**.
+Put in your Earth weight (the one you measure on a weight machine), hit calculate and it instantly calculates what you'd weight across 8 planets, the moon and more to come! See how high you'd jump on the celestial bodies compared to earth by just clicking on them! Hit the share button to get an instant 9:16 poster ready to drop on social media.
 
 <table align="center">
   <tr>
@@ -25,25 +22,20 @@ Play with the app live here: **[https://cosmic-gravity-jumper.vercel.app](https:
   </tr>
 </table>
 
----
-
 ## ✨ Key Features
-- 🪐 **Celestial Gravity Engine**: Real-time relative mass and gravity calculations ($g$-force ratios for Moon, Mercury, Venus, Mars, Jupiter, Saturn, Uranus, Neptune).
-- 👩‍🚀 **Physics Jump Simulator**: Interactive jumping astronaut animations with custom pitch-swept Web Audio API sound effects.
-- 🎨 **Dynamic 9:16 Poster Generator**: Generates shareable, downloadable high-resolution posters using HTML5 Canvas layout calculations.
-- 🌌 **Interactive Starfield Background**: Dynamic twinkling particle system with mouse proximity illumination.
+- 🪐 **Real Space Physics**: Real-time weight & g-force math calculations.
+- 👩‍🚀 **Gravity Jump Simulator**: Tap/click on a planet to watch your astronaut float or slam back down depending on its gravity.
+- 🔊 **Sound Effects**: Custom pitched Web Audio sound effects when jumping.
+- 🎨 **Poster Generator**: Generates high-res 9:16 images built right in the browser with HTML5 Canvas.
+- 🌌 **Interactive Stars Background**: Move your cursor around to make the background stars twinkle.
 - 📱 **Mobile-Optimized Experience**: Responsive touch interactions and design layout.
-- ⚡ **Zero-Dependency Architecture**: Built completely with vanilla HTML5, CSS3, and JavaScript (<50KB footprint).
-
----
+- ⚡ **Vanilla Architecture**: Built purely with vanilla HTML5, CSS3, and JavaScript (under 50KB total).
 
 ## 🛠️ Built With
 - **HTML5 & CSS3** (Flexbox, CSS Grid, and custom CSS variables)
 - **Vanilla JavaScript (ES6+)**
-- **HTML5 Canvas API** (Starfield background & poster export)
-- **Web Audio API** (Procedural sound synthesis)
-
----
+- **HTML5 Canvas API** (Starfield background & poster render)
+- **Web Audio API** (Synthesized sound effects)
 
 ## 🚀 Running Locally
 
