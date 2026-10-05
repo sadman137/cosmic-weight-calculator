@@ -21,6 +21,8 @@ Test it out here: **[https://cosmic-gravity-jumper.vercel.app](https://cosmic-gr
   </tr>
 </table>
 
+---------------------------------------------------------------------------
+
 ## Key Features
 
 - **Real Space Physics**: Real-time weight & g-force math calculations.
