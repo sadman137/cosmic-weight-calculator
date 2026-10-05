@@ -56,13 +56,13 @@ If you would like to run or inspect the code locally:
 
 ## How It Works
 
-**1. Sound**
+### 1. Sound
 Every sound is made in the browser with the Web Audio API. An oscillator's pitch slides up or down with an exponential ramp, a gain node fades it out. The pitch is dependant on the planets gravity, so jumping on Jupiter sounds different from jumping on the Moon.
 
-**2. Share Poster**
+### 2. Share Poster
 When you hit the share button, it draws a poster on a hidden canvas and downloads it as a 9:16 PNG. Wrote custom text wrapping. Scaled everything by the device pixel ratio so it doesn't come out blurry or sharper screens.
 
-**3. Jump Physics**
+### 3. Jump Physics
 Gravity changes the vertical speed and speed changes the height frame by frame. Used the real surface gravity for each planet. Tied updates to the time between frames inside `requestAnimationFrame` to prevent stutter.
 
 ## Credits
